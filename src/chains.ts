@@ -8,6 +8,7 @@ export type BlockchainConfig = {
     rpcUrl: string;
     weth: string;
     usdc: string;
+    engine: string;
 }
 
 export const networks: BlockchainList = {
@@ -15,7 +16,8 @@ export const networks: BlockchainList = {
         name: "Collar Devnet",
         rpcUrl: "http://44.221.222.232:8545/",
         weth: "0x6379ebd504941f50d5bfde9348b37593bd29c835",
-        usdc: "0x29a79095352a718b3d7fe84e1f14e9f34a35598e"
+        usdc: "0x29a79095352a718b3d7fe84e1f14e9f34a35598e",
+        engine: "0x33b1B5Aa9Aa4Da83a332F0bC5cAC6A903FDE5d92"
     },
     // arbitrum: {
     //     name: "Arbitrum",

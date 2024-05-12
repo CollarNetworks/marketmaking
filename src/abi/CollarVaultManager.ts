@@ -1,4 +1,4 @@
-export const CollarVaultManagerABI = [
+export const CollarVaultManager = [
     {
         "type": "constructor",
         "inputs": [

@@ -17,6 +17,7 @@ const chains_1 = require("./chains");
 const getSymbols_1 = require("./utils/getSymbols");
 const mintMeTestnetTokens_1 = require("./utils/mintMeTestnetTokens");
 const dotenv_1 = __importDefault(require("dotenv"));
+const analyzePool_1 = require("./utils/analyzePool");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -47,15 +48,15 @@ app.get('/mint', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).send('Failed to mint tokens');
     }
 }));
-app.get('/pools', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/pool', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("\n\n\n\nattempt\n\n\n");
     try {
-        const symbols = yield Promise.all(Object.keys(chains_1.networks).map(getSymbols_1.getSymbols));
+        const symbols = yield Promise.all(Object.keys(chains_1.networks).map(analyzePool_1.analyzePool));
         res.json(symbols);
     }
     catch (error) {
-        console.error('Error fetching symbols:', error);
-        res.status(500).send('Failed to fetch symbols');
+        console.error('Error fetching pool liquidity:', error);
+        res.status(500).send('Failed to fetch pool liquidity');
     }
 }));
 // Setting up a cron job that logs "Hello World" every hour

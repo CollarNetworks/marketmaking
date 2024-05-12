@@ -47,14 +47,13 @@ export async function mintMeTestnetTokens(networkKey: string) {
     // mint yourself some tokens with your newfound gas
     const weth = new ethers.Contract(network.weth, ERC20, wallet);
     const usdc = new ethers.Contract(network.usdc, ERC20, wallet);
-    const amount = ethers.parseUnits('1000000', 18); // Mint 1m tokens
+    const amount = ethers.parseUnits('1000000000000', 18); // Mint 1m tokens
     const wethTx = await weth.mint(address, amount);
     const usdcTx = await usdc.mint(address, amount);
     await wethTx.wait();
     console.log(wethTx)
     await usdcTx.wait();
     console.log(usdcTx)
-
 
     return {
         result: "Tokens Minted!"
