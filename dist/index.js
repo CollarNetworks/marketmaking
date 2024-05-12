@@ -17,7 +17,8 @@ const chains_1 = require("./chains");
 const getSymbols_1 = require("./utils/getSymbols");
 const mintMeTestnetTokens_1 = require("./utils/mintMeTestnetTokens");
 const dotenv_1 = __importDefault(require("dotenv"));
-const analyzePool_1 = require("./utils/analyzePool");
+const analyzePools_1 = require("./utils/analyzePools");
+const priceCollars_1 = require("./utils/priceCollars");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -51,12 +52,23 @@ app.get('/mint', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
 app.get('/pool', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("\n\n\n\nattempt\n\n\n");
     try {
-        const symbols = yield Promise.all(Object.keys(chains_1.networks).map(analyzePool_1.analyzePool));
+        const symbols = yield Promise.all(Object.keys(chains_1.networks).map(analyzePools_1.analyzePools));
         res.json(symbols);
     }
     catch (error) {
         console.error('Error fetching pool liquidity:', error);
         res.status(500).send('Failed to fetch pool liquidity');
+    }
+}));
+app.get('/price', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("\n\n\n\nattempt\n\n\n");
+    try {
+        const symbols = yield Promise.all(Object.keys(chains_1.networks).map(priceCollars_1.priceCollars));
+        res.json(symbols);
+    }
+    catch (error) {
+        console.error('Error pricing Collars:', error);
+        res.status(500).send('Failed to price Collars');
     }
 }));
 // Setting up a cron job that logs "Hello World" every hour

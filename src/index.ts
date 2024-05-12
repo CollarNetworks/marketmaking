@@ -1,11 +1,11 @@
 import express from 'express';
 import cron from 'node-cron';
-import { ethers } from 'ethers';
 import { networks } from './chains'
 import { getSymbols } from './utils/getSymbols'
 import { mintMeTestnetTokens } from './utils/mintMeTestnetTokens'
 import dotenv from 'dotenv';
-import { analyzePool } from './utils/analyzePool';
+import { analyzePools } from './utils/analyzePools';
+import { priceCollars } from './utils/priceCollars';
 dotenv.config();
 
 const app = express();
@@ -42,11 +42,22 @@ app.get('/mint', async (_req, res) => {
 app.get('/pool', async (req, res) => {
     console.log("\n\n\n\nattempt\n\n\n")
     try {
-        const symbols = await Promise.all(Object.keys(networks).map(analyzePool));
+        const symbols = await Promise.all(Object.keys(networks).map(analyzePools));
         res.json(symbols);
     } catch (error) {
         console.error('Error fetching pool liquidity:', error);
         res.status(500).send('Failed to fetch pool liquidity');
+    }
+});
+
+app.get('/price', async (req, res) => {
+    console.log("\n\n\n\nattempt\n\n\n")
+    try {
+        const symbols = await Promise.all(Object.keys(networks).map(priceCollars));
+        res.json(symbols);
+    } catch (error) {
+        console.error('Error pricing Collars:', error);
+        res.status(500).send('Failed to price Collars');
     }
 });
 

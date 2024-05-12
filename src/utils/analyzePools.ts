@@ -8,7 +8,7 @@ import { ethers } from "ethers"
 import { CollarEngine } from "../abi/CollarEngine";
 import { CollarPool } from "../abi/CollarPool";
 
-export async function analyzePool(networkKey: string) {
+export async function analyzePools(networkKey: string) {
     const network = networks[networkKey];
     const provider = new ethers.JsonRpcProvider(network.rpcUrl);
     const engine = new ethers.Contract(network.engine, CollarEngine, provider);
@@ -36,6 +36,7 @@ export async function analyzePool(networkKey: string) {
             };
         }));
         const poolResults = {
+            poolAddress: poolAddress,
             cashAsset: cashAsset,
             collateralAsset: collateralAsset,
             durationSecs: Number(duration),
