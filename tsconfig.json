@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "esModuleInterop": true, // Enables import of ES6 modules
+        "moduleResolution": "node", // Use Node.js module resolution mechanism
+        "outDir": "dist", // Output directory for compiled files
+        "rootDir": "src", // Root directory of your TypeScript files
+        "strict": true, // Enable all strict type-checking options
+        "types": [
+            "node"
+        ], // Load node types
+        "resolveJsonModule": true // Allow importing JSON files
+    },
+    "include": [
+        "src/**/*"
+    ], // Include all files in src directory
+    "exclude": [
+        "node_modules"
+    ] // Exclude node_modules
+}
